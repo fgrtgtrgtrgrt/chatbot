@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Transformer Chatbot</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@huggingface/model-viewer@0.1.0/dist/model-viewer.min.css">
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">
+        <h1>Transformer Chatbot</h1>
+      </div>
+      <div class="chat-history">
+        <div class="chat-message bot-message">
+          <p>Welcome! Ask me anything.</p>
+        </div>
+      </div>
+      <div class="chat-input">
+        <form onsubmit="return sendMessage()">
+          <input type="text" id="user-input" autocomplete="off" placeholder="Type your message...">
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@huggingface/sentencepiece@0.1.96"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@huggingface/tokenizers@0.10.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@huggingface/model@0.10.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@huggingface/datasets@0.9.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@huggingface/model-viewer@0.1.0/dist/model-viewer.min.js"></script>
+    <script>
+      // Define the chatbot model
+      const model = await hf.load("microsoft/DialoGPT-medium");
+
+      // Define the tokenizer
+      const tokenizer = await hf.load("microsoft/DialoGPT-medium");
+
+      // Get references to the chat history and input elements
+      const chatHistory = document.querySelector(".chat-history");
+      const userInput = document.querySelector("#user-input");
+
+      // Define a function to send a message
+      async function sendMessage() {
+        // Get the user's input
+        const userText = userInput.value;
+        // Clear the input
+        userInput.value = "";
+        // Add the user's message to the chat history
+        const userMessage = document.createElement("div");
+        userMessage.classList.add("chat-message", "user-message");
+        userMessage.innerHTML = `<p>${userText}</p>`;
+        chatHistory.appendChild(userMessage);
+        // Generate the bot's response
+        const botText = await model.generate(userText, {
+          max_length: 1000,
+          num_beams: 5,
+          no_repeat_ngram_size: 2,
+          early_stopping: true,
+        });
+        // Add the bot's message to the chat history
+        const botMessage = document.createElement("div");
+        botMessage.classList.add("chat-message", "bot-message");
+        botMessage.innerHTML = `<p>${botText}</p>`;
+        chatHistory.appendChild(botMessage);
+        // Scroll to the bottom of the chat history
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+        // Return false to prevent the form from submitting
+        return false;
+      }
+    </script>
+  </body>
+</html>

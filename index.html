@@ -2,13 +2,15 @@
 <html>
 <head>
 	<title>Charles - Chatbot</title>
-	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.14.0"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/gpt2@2.0.3/dist/browser/index.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.18.0/firebase-app.js" integrity="sha512-djpBImoa+ot4QGqENJMYq/16OroxOsbJJemqnOpe4wMi8jDEM6iqRZl8H0JLpq1ao/sc5O7+weKuqIX3HbLtsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.18.0/firebase-auth.min.js" integrity="sha512-W8k9rV2+FvubLTLdCHLURWuEu9BtsnwzvVFCqBZAFPss+pvi5oHAMFDnklgeq1QKmTX5rDaRuAzDYI6Uufdx7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.18.0/firebase-database.min.js" integrity="sha512-POVwgPHOXVwnhRlyoI5kWg4C9tnDu9FvMUWUVt17i93pEkhgNHNd75fyN/Cp3rDm78kgirFE+tHs+1uPifZ3hg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.18.0/firebase-app.js" integrity="sha512-djpBImoa+ot4QGqENJMYq/16OroxOsbJJemqnOpe4wMi8jDEM6iqRZl8H0JLpq1ao/sc5O7+weKuqIX3HbLtsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.18.0/firebase-auth.min.js" integrity="sha512-W8k9rV2+FvubLTLdCHLURWuEu9BtsnwzvVFCqBZAFPss+pvi5oHAMFDnklgeq1QKmTX5rDaRuAzDYI6Uufdx7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.18.0/firebase-database.min.js" integrity="sha512-POVwgPHOXVwnhRlyoI5kWg4C9tnDu9FvMUWUVt17i93pEkhgNHNd75fyN/Cp3rDm78kgirFE+tHs+1uPifZ3hg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 	<header>
@@ -36,6 +38,7 @@
 	<footer>
 		<p>You have <span id="chat-count">0</span> chats remaining.</p>
 	</footer>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="script.js"></script>
 </body>
 </html>

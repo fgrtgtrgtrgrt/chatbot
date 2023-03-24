@@ -3,7 +3,34 @@
   <head>
     <meta charset="UTF-8">
     <title>Transformer Chatbot</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@huggingface/model-viewer@0.1.0/dist/model-viewer.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/chatgpt/dist/chatgpt.min.css" />
+    <style>
+      /* Add your custom styles here */
+      .chat-container {
+        background-color: #f8f8f8;
+      }
+      .chat-header {
+        background-color: #34568b;
+      }
+      .chat-header h1 {
+        color: #fff;
+      }
+      .user-message {
+        background-color: #fff;
+        color: #333;
+      }
+      .bot-message {
+        background-color: #eee;
+        color: #333;
+      }
+      .chat-input form button {
+        background-color: #34568b;
+        color: #fff;
+      }
+      .chat-input form button:hover {
+        background-color: #2c4e8a;
+      }
+    </style>
   </head>
   <body>
     <div class="chat-container">
@@ -11,9 +38,7 @@
         <h1>Transformer Chatbot</h1>
       </div>
       <div class="chat-history">
-        <div class="chat-message bot-message">
-          <p>Welcome! Ask me anything.</p>
-        </div>
+        <!-- The chat history will be loaded here -->
       </div>
       <div class="chat-input">
         <form onsubmit="return sendMessage()">
@@ -27,7 +52,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@huggingface/tokenizers@0.10.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/@huggingface/model@0.10.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/@huggingface/datasets@0.9.1"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@huggingface/model-viewer@0.1.0/dist/model-viewer.min.js"></script>
     <script>
       // Define the chatbot model
       const model = await hf.load("microsoft/DialoGPT-medium");
@@ -38,6 +62,17 @@
       // Get references to the chat history and input elements
       const chatHistory = document.querySelector(".chat-history");
       const userInput = document.querySelector("#user-input");
+
+      // Load the chat history from local storage
+      const chatHistoryData = JSON.parse(localStorage.getItem("chatHistoryData")) || [];
+
+      // Display the chat history in the chat window
+      chatHistoryData.forEach(chat => {
+        const message = document.createElement("div");
+        message.classList.add("chat-message", chat.sender);
+        message.innerHTML = `<p>${chat.message}</p>`;
+        chatHistory.appendChild(message);
+      });
 
       // Define a function to send a message
       async function sendMessage() {
@@ -50,6 +85,8 @@
         userMessage.classList.add("chat-message", "user-message");
         userMessage.innerHTML = `<p>${userText}</p>`;
         chatHistory.appendChild(userMessage);
+        // Generate
+
         // Generate the bot's response
         const botText = await model.generate(userText, {
           max_length: 1000,
